@@ -175,3 +175,27 @@ async function removeEmployee(employeeInfo) {
     const rows = await db.query(query, args);
     console.log(`Employee removed: ${employeeName[0]} ${employeeName[1]}`);
 }
+
+
+async function addDepartment(departmentInfo) {
+    const departmentName = departmentInfo.departmentName;
+    let query = 'INSERT into department (name) VALUES (?)';
+    let args = [departmentName];
+    const rows = await db.query(query, args);
+    console.log(`Added department named ${departmentName}`);
+}
+
+async function addRole(roleInfo) {
+    // INSERT into role (title, salary, department_id) VALUES ("Sales Manager", 100000, 1);
+    const departmentId = await getDepartmentId(roleInfo.departmentName);
+    const salary = roleInfo.salary;
+    const title = roleInfo.roleName;
+    let query = 'INSERT into role (title, salary, department_id) VALUES (?,?,?)';
+    let args = [title, salary, departmentId];
+    const rows = await db.query(query, args);
+    console.log(`Added role ${title}`);
+}
+
+/* 
+End of calls to the database
+*/

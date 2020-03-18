@@ -199,3 +199,27 @@ async function addRole(roleInfo) {
 /* 
 End of calls to the database
 */
+
+
+async function mainPrompt() {
+    return inquirer
+        .prompt([
+            {
+                type: "list",
+                message: "What would you like to do?",
+                name: "action",
+                choices: [
+                  "Add department",
+                  "Add employee",
+                  "Add role",
+                  "Remove employee",
+                  "Update employee role",
+                  "View all departments",
+                  "View all employees",
+                  "View all employees by department",
+                  "View all roles",
+                  "Exit"
+                ]
+            }
+        ])
+}

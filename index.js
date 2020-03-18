@@ -54,3 +54,11 @@ async function getDepartmentId(departmentName) {
     const rows = await db.query(query, args);
     return rows[0].id;
 }
+
+// Given the name of the role, what is its id?
+async function getRoleId(roleName) {
+    let query = "SELECT * FROM role WHERE role.title=?";
+    let args = [roleName];
+    const rows = await db.query(query, args);
+    return rows[0].id;
+}

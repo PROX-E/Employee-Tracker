@@ -260,3 +260,19 @@ async function getAddEmployeeInfo() {
             }
         ])
 }
+
+async function getRemoveEmployeeInfo() {
+    const employees = await getEmployeeNames();
+    return inquirer
+    .prompt([
+        {
+            type: "list",
+            message: "Which employee do you want to remove?",
+            name: "employeeName",
+            choices: [
+                // populate from db
+                ...employees
+            ]
+        }
+    ])
+}

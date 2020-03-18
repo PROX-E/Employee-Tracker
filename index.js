@@ -74,3 +74,14 @@ async function getEmployeeId(fullName) {
     const rows = await db.query(query, args);
     return rows[0].id;
 }
+
+async function getEmployeeNames() {
+    let query = "SELECT * FROM employee";
+
+    const rows = await db.query(query);
+    let employeeNames = [];
+    for(const employee of rows) {
+        employeeNames.push(employee.first_name + " " + employee.last_name);
+    }
+    return employeeNames;
+}

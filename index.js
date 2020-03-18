@@ -141,3 +141,16 @@ function getFirstAndLastName( fullName ) {
     }
     return [first_name.trim(), last_name];
 }
+
+async function updateEmployeeRole(employeeInfo) {
+    // Given the name of the role, what is the role id?
+    // Given the full name of the employee, what is their first_name and last_name?
+    // UPDATE employee SET role_id=1 WHERE employee.first_name='Mary Kay' AND employee.last_name='Ash';
+    const roleId = await getRoleId(employeeInfo.role);
+    const employee = getFirstAndLastName(employeeInfo.employeeName);
+
+    let query = 'UPDATE employee SET role_id=? WHERE employee.first_name=? AND employee.last_name=?';
+    let args=[roleId, employee[0], employee[1]];
+    const rows = await db.query(query, args);
+    console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
+}

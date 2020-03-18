@@ -154,3 +154,24 @@ async function updateEmployeeRole(employeeInfo) {
     const rows = await db.query(query, args);
     console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
 }
+
+
+async function addEmployee(employeeInfo) {
+    let roleId = await getRoleId(employeeInfo.role);
+    let managerId = await getEmployeeId(employeeInfo.manager);
+
+    // INSERT into employee (first_name, last_name, role_id, manager_id) VALUES ("Bob", "Hope", 8, 5);
+    let query = "INSERT into employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)";
+    let args = [employeeInfo.first_name, employeeInfo.last_name, roleId, managerId];
+    const rows = await db.query(query, args);
+    console.log(`Added employee ${employeeInfo.first_name} ${employeeInfo.last_name}.`);
+}
+
+async function removeEmployee(employeeInfo) {
+    const employeeName = getFirstAndLastName(employeeInfo.employeeName);
+    // DELETE from employee WHERE first_name="Cyrus" AND last_name="Smith";
+    let query = "DELETE from employee WHERE first_name=? AND last_name=?";
+    let args = [employeeName[0], employeeName[1]];
+    const rows = await db.query(query, args);
+    console.log(`Employee removed: ${employeeName[0]} ${employeeName[1]}`);
+}

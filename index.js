@@ -120,3 +120,24 @@ async function viewAllEmployeesByDepartment() {
     const rows = await db.query(query);
     console.table(rows);
 }
+
+// Will return an array with only two elements in it: 
+// [first_name, last_name]
+function getFirstAndLastName( fullName ) {
+    // If a person has a space in their first name, such as "Mary Kay", 
+    // then first_name needs to ignore that first space. 
+    // Surnames generally do not have spaces in them so count the number
+    // of elements in the array after the split and merge all before the last
+    // element.
+    let employee = fullName.split(" ");
+    if(employee.length == 2) {
+        return employee;
+    }
+
+    const last_name = employee[employee.length-1];
+    let first_name = " ";
+    for(let i=0; i<employee.length-1; i++) {
+        first_name = first_name + employee[i] + " ";
+    }
+    return [first_name.trim(), last_name];
+}

@@ -276,3 +276,41 @@ async function getRemoveEmployeeInfo() {
         }
     ])
 }
+
+
+async function getDepartmentInfo() {
+    return inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What is the name of the new department?",
+            name: "departmentName"
+        }
+    ])
+}
+
+async function getRoleInfo() {
+    const departments = await getDepartmentNames();
+    return inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What is the title of the new role?",
+            name: "roleName"
+        },
+        {
+            type: "input",
+            message: "What is the salary of the new role?",
+            name: "salary"
+        },
+        {
+            type: "list",
+            message: "Which department uses this role?",
+            name: "departmentName",
+            choices: [
+                // populate from db
+                ...departments
+            ]
+        }
+    ])
+}

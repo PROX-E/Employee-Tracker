@@ -62,3 +62,15 @@ async function getRoleId(roleName) {
     const rows = await db.query(query, args);
     return rows[0].id;
 }
+
+
+// need to find the employee.id of the named manager
+async function getEmployeeId(fullName) {
+    // First split the name into first name and last name
+    let employee = getFirstAndLastName(fullName);
+
+    let query = 'SELECT id FROM employee WHERE employee.first_name=? AND employee.last_name=?';
+    let args=[employee[0], employee[1]];
+    const rows = await db.query(query, args);
+    return rows[0].id;
+}
